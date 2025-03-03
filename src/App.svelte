@@ -73,15 +73,18 @@
 
   // Fungsi untuk menghitung konversi mata uang
   const calculateConversion = (): void => {
-    if (selectedCurrency && selectedCurrency in currencies) {
-      const rate = currencies[selectedCurrency];
-      if (conversionType === 'fromUSD') {
-        result = amount * rate;
-      } else {
-        result = amount / rate;
-      }
-    }
-  };
+  // Pastikan amount adalah angka valid dan lebih dari 0
+  const validAmount = amount && !isNaN(amount) ? amount : 0;
+  const rate = currencies[selectedCurrency] ?? 0;
+
+  if (validAmount > 0 && rate > 0) {
+    result = conversionType === 'fromUSD'
+      ? validAmount * rate
+      : validAmount / rate;
+  } else {
+    result = 0;
+  }
+};
 
   // Toggle dark mode
   const toggleDarkMode = () => {
@@ -169,7 +172,10 @@
                 type="number"
                 id="amount"
                 bind:value={amount}
-                on:input={calculateConversion}
+                on:input={() => {
+                  amount = Math.max(1, Number(amount) || 1); // Pastikan minimal 1
+                  calculateConversion();
+                }}
                 min="1"
                 class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               >
