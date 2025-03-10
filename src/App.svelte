@@ -103,7 +103,7 @@
   });
 </script>
 
-<div class="min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-white">
+<div class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
   <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-bold text-center dark:text-white">Konverter Mata Uang</h1>
